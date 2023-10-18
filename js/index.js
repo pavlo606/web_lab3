@@ -112,13 +112,23 @@ submitButton.addEventListener("click", (event) => {
     const { name, species, number_of_legs, has_wings, is_dangerous, age } = getInputValues();
 
     if (!name || !species) {
-        alert("Fuck you! You must input name and species, motherfucker!");
+        alert("You must input name and species");
         return;
     }
 
     if (age < 0 || number_of_legs < 0) {
-        alert("You're fucking motherfucker! How can you imagine negative age or number of legs?!");
+        alert("Are you stupid! How can you imagine negative age or number of legs?!");
         return;
+    }
+
+    for (const insect of insects) {
+        if (insect.name == name) {
+            if (editMode && editItemId == insect.id) {
+                continue;
+            }
+            alert("You can't add insects with same names!");
+            return;
+        }
     }
 
     clearInputs();
@@ -168,7 +178,7 @@ searchCancelButton.addEventListener("click", () => {
 });
 
 sortInsectsCheckBox.addEventListener("click", () => {
-    refetchAllInsects();
+    refetchAllInsects(insectsToDisplay);
 });
 
 countButton.addEventListener("click", () => {
